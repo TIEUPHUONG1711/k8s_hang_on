@@ -9,7 +9,7 @@ metadata:
   name: frontend-deployment
   namespace: k8s-lab2
 spec:
-  replicas: 2
+  replicas: 4
   selector:
     matchLabels:
       app: frontend
