@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: k8s-lab2
+  name: k8s-lab1
 ---
 # apiVersion: apps/v1
 # kind: Deployment
@@ -28,7 +28,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend-deployment
-  namespace: k8s-lab2
+  namespace: k8s-lab1
 spec:
   replicas: 2
   selector:
