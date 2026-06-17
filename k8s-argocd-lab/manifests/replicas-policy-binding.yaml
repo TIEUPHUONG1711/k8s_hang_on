@@ -1,0 +1,15 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicyBinding
+metadata:
+  name: max-replicas-binding
+
+spec:
+  policyName: max-replicas-policy
+
+  validationActions:
+  - Deny
+
+#đao đoạn code này tạo một ValidatingAdmissionPolicyBinding có tên
+#  max-replicas-binding, gắn với ValidatingAdmissionPolicy có tên max-replicas-policy. 
+#  Khi có đối tượng nào vi phạm policy này, hành động sẽ là Deny, tức là từ chối tạo 
+#  hoặc cập nhật đối tượng đó.

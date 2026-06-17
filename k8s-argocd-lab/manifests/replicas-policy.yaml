@@ -8,11 +8,17 @@ spec:
 
   matchConstraints:
     resourceRules:
-    - apiGroups: ["apps"]
-      apiVersions: ["v1"]
+    - apiGroups: ["argoproj.io"]
+      apiVersions: ["v1alpha1"]
       operations: ["CREATE", "UPDATE"]
-      resources: ["deployments"]
+      resources: ["rollouts"] #áp dụng policy cho cả Deployment và Rollout
 
   validations:
   - expression: "object.spec.replicas <= 5"
     message: "Replicas must not exceed 5"
+
+#đoạn code này tạo một ValidatingAdmissionPolicy có tên max-replicas-policy,
+#  áp dụng cho các tài nguyên thuộc API group argoproj.io, version v1alpha1, loại resources là
+#   rollouts, khi có thao tác CREATE hoặc UPDATE. Policy này sẽ 
+#   kiểm tra nếu trường spec.replicas của đối tượng được tạo hoặc cập nhật lớn 
+#   hơn 5 thì sẽ trả về lỗi với message "Replicas must not exceed 5".    
