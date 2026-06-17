@@ -19,6 +19,9 @@ rules:
   verbs: ["get", "list"] #quyền get và list pods
 #role đang gán cho service account app-sa quyền get và list pods trong namespace demo
 #và chưa có pod nào sử dụng service account này nên chưa có pod nào được quyền get và list pods
+#pod thông qua service account sẽ có một tấm thẻ nhân viên để nói chuyện với API Server, tấm thẻ này gọi là token
+#nó được phép hỏi k9s api để xem ds pod or tt pod
+#Role cấp quyền truy cập Kubernetes API.
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding #tạo rolebinding để gán role app-role cho service account app-sa

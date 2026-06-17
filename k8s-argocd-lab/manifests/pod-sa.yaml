@@ -6,7 +6,10 @@ metadata:
 
 spec:
   serviceAccountName: app-sa #pod test-sa sử dụng service account app-sa để giao tiếp với Kubernetes API
-
+# Tạo Pod test-sa trong namespace demo, Pod này sử dụng ServiceAccount app-sa để giao tiếp với
+#  Kubernetes API. Bên trong Pod có một container tên frontend, được tạo từ image nginx, nhưng 
+#  thay vì chạy Nginx thì container thực hiện lệnh sleep 3600 để giữ Pod ở trạng thái 
+#  Running phục vụ việc test RBAC.
   containers:
   - name: frontend
     image: nginx
@@ -14,3 +17,12 @@ spec:
     command:
     - sleep
     - "3600"
+
+# sleep 3600 để giữ container chạy, giúp Pod luôn ở trạng thái Running
+# và có thể exec vào Pod để kiểm tra ServiceAccount/RBAC
+# Chạy lệnh bên trong container của Pod.
+
+# Ví dụ:kubectl exec -it test-sa -n demo -- sh
+# Pod chỉ Running khi trong container còn process đang chạy. Lab dùng sleep
+#  3600 để giữ process tồn tại, giúp Pod luôn Running và có thể kubectl exec vào để
+#   test RBAC.
