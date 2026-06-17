@@ -1,0 +1,41 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: backend-rollout
+  namespace: k8s-lab1
+
+spec:
+  replicas: 4
+
+  selector:
+    matchLabels:
+      app: backend
+
+  template:
+    metadata:
+      labels:
+        app: backend
+
+    spec:
+      containers:
+      - name: backend
+        image: hashicorp/http-echo
+        args:
+        - "-text=Hello from Backend v1"
+        ports:
+        - containerPort: 5678
+
+  strategy:
+    canary:
+      steps:
+      - setWeight: 10
+
+      - pause:
+          duration: 30s
+
+      - setWeight: 50
+
+      - pause:
+          duration: 30s
+
+      - setWeight: 100
