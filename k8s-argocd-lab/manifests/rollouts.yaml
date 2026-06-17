@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: nginx:latest
+        image: nginx:1.29
 
   strategy:
     canary:
