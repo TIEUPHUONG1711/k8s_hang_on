@@ -3,7 +3,10 @@ kind: ServiceAccount #tạo service account có tên là app-sa
 metadata:
   name: app-sa
   namespace: demo
-
+# ServiceAccount app-sa được gán Role app-role, nên được phép get và list Pod trong namespace demo.
+# ServiceAccount là danh tính (identity) mà Pod sử dụng để nói chuyện với Kubernetes API((API Server) là "cửa chính" của Kubernetes.)
+#khi pod chạy thì k8s sẽ gắn cho pod 1 thẻ nhân viên là app-sa
+# ServiceAccount đại diện cho toàn bộ Pod khi Pod giao tiếp với Kubernetes API.
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -14,7 +17,8 @@ rules:
 - apiGroups: [""] #core API group như pods, services, configmaps, secrets,...
   resources: ["pods"]
   verbs: ["get", "list"] #quyền get và list pods
-
+#role đang gán cho service account app-sa quyền get và list pods trong namespace demo
+#và chưa có pod nào sử dụng service account này nên chưa có pod nào được quyền get và list pods
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding #tạo rolebinding để gán role app-role cho service account app-sa
